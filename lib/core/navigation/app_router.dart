@@ -21,7 +21,7 @@ class AppRoutes {
       ),
       GoRoute(
         path: kLogIn,
-        builder: (context, state) => const LogInPage(),
+        builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
         path: kHome,
