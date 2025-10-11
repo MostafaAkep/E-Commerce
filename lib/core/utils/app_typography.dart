@@ -12,6 +12,7 @@ double font_15Size = 15.sp;
 double font_14Size = 14.sp;
 double font_13Size = 13.sp;
 double font_12Size = 12.sp;
+double font_11Size = 11.sp;
 double font_10Size = 10.sp;
 double font_9Size = 9.sp;
 double font_8Size = 8.sp;
@@ -21,7 +22,6 @@ final defaultPadding = EdgeInsets.only(
   left: 20.w,
   right: 20.w,
   top: 105.h,
-  bottom: 25.h,
 );
 //sb = bold 700
 //sm = Medium 500
@@ -32,17 +32,25 @@ TextStyle sb28 = TextStyle(
   fontSize: font_28Size,
   fontWeight: FontWeight.w600,
 );
-TextStyle r15 = TextStyle(
-  fontSize: font_15Size,
-  fontWeight: FontWeight.w400,
+TextStyle sb13 = TextStyle(
+  fontSize: font_13Size,
+  fontWeight: FontWeight.w600,
+);
+TextStyle m17 = TextStyle(
+  fontSize: font_17Size,
+  fontWeight: FontWeight.w500,
 );
 TextStyle m15 = TextStyle(
   fontSize: font_15Size,
   fontWeight: FontWeight.w500,
 );
-TextStyle m17 = TextStyle(
-  fontSize: font_17Size,
+TextStyle m11 = TextStyle(
+  fontSize: font_11Size,
   fontWeight: FontWeight.w500,
+);
+TextStyle r15 = TextStyle(
+  fontSize: font_15Size,
+  fontWeight: FontWeight.w400,
 );
 TextStyle r13 = TextStyle(
   fontSize: font_13Size,

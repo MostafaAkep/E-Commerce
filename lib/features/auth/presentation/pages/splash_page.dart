@@ -40,7 +40,7 @@ class _SplashPageState extends State<SplashPage>
 
       // 4️⃣ After animation completes → navigate
       if (mounted) {
-        context.push(AppRoutes.kLogIn);
+        context.push(AppRoutes.kGetStarted);
       }
     });
   }

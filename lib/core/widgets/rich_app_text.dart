@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/core/theme/app_colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -15,16 +16,20 @@ class RichAppText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text.rich(
+      textAlign: TextAlign.center,
       TextSpan(
         children: [
           TextSpan(
             text: normText,
-            style: const TextStyle(color: Colors.grey, fontSize: 11),
+            style: const TextStyle(
+              color: AppColors.grey,
+              fontSize: 11,
+            ),
           ),
           TextSpan(
             text: tapText,
             style: const TextStyle(
-              color: Color(0xffC8FE3B),
+              color: AppColors.black,
               fontSize: 11,
             ),
             recognizer: TapGestureRecognizer()..onTap = onTapFun,

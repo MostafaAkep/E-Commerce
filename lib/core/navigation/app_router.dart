@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/auth/presentation/pages/get_started_page.dart';
 import 'package:e_commerce_app/features/auth/presentation/pages/log_in_page.dart';
 import 'package:e_commerce_app/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:e_commerce_app/features/auth/presentation/pages/splash_page.dart';
@@ -6,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 class AppRoutes {
   static const String kSplash = '/';
+  static const String kGetStarted = '/GetStarted';
   static const String kSignUp = '/SignUp';
   static const String kLogIn = '/LogIn';
   static const String kHome = '/Home';
@@ -14,6 +16,10 @@ class AppRoutes {
       GoRoute(
         path: kSplash,
         builder: (context, state) => const SplashPage(),
+      ),
+      GoRoute(
+        path: kGetStarted,
+        builder: (context, state) => const GetStartedPage(),
       ),
       GoRoute(
         path: kSignUp,
