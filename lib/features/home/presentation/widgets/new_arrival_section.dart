@@ -1,41 +1,43 @@
 import 'package:e_commerce_app/core/theme/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_typography.dart';
-import 'package:e_commerce_app/core/utils/assets.dart';
+import 'package:e_commerce_app/features/home/domain/entities/items_entity.dart';
+import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NewArrivalSection extends StatelessWidget {
-  const NewArrivalSection({super.key});
+  const NewArrivalSection({super.key, required this.products});
+  final ProductEntity products;
 
   @override
   Widget build(BuildContext context) {
-    final items = [
-      {
-        "image": Assets.whiteMan1,
-        "title": "Nike Sportswear Club Fleece",
-        "price": "\$99",
-      },
-      {
-        "image": Assets.whiteMan2,
-        "title": "Trail Running Jacket Nike Windrunner",
-        "price": "\$95",
-      },
-      {
-        "image": Assets.blackMan1,
-        "title": "Trail Running Jacket Nike Windrunner",
-        "price": "\$9",
-      },
-      {
-        "image": Assets.blackMan2,
-        "title": "Trail Running Jacket Nike Windrunner",
-        "price": "\$919",
-      },
-      {
-        "image": Assets.blackMan1,
-        "title": "Trail Running Jacket Nike Windrunner",
-        "price": "\$959",
-      },
-    ];
+    // final items = [
+    //   {
+    //     "image": Assets.whiteMan1,
+    //     "title": "Nike Sportswear Club Fleece",
+    //     "price": "\$99",
+    //   },
+    //   {
+    //     "image": Assets.whiteMan2,
+    //     "title": "Trail Running Jacket Nike Windrunner",
+    //     "price": "\$95",
+    //   },
+    //   {
+    //     "image": Assets.blackMan1,
+    //     "title": "Trail Running Jacket Nike Windrunner",
+    //     "price": "\$9",
+    //   },
+    //   {
+    //     "image": Assets.blackMan2,
+    //     "title": "Trail Running Jacket Nike Windrunner",
+    //     "price": "\$919",
+    //   },
+    //   {
+    //     "image": Assets.blackMan1,
+    //     "title": "Trail Running Jacket Nike Windrunner",
+    //     "price": "\$959",
+    //   },
+    // ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +45,7 @@ class NewArrivalSection extends StatelessWidget {
         _sectionHeader("New Arrival"),
         SizedBox(height: 10.h),
         GridView.builder(
-          itemCount: items.length,
+          itemCount: products.items?.length ?? 0,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -53,7 +55,7 @@ class NewArrivalSection extends StatelessWidget {
             childAspectRatio: 0.7,
           ),
           itemBuilder: (context, index) {
-            final item = items[index];
+            final item = products.items![index];
             return _productCard(item);
           },
         ),
@@ -71,7 +73,7 @@ class NewArrivalSection extends StatelessWidget {
     );
   }
 
-  Widget _productCard(Map<String, String> item) {
+  Widget _productCard(ItemsEntity item) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -95,8 +97,8 @@ class NewArrivalSection extends StatelessWidget {
                     topLeft: Radius.circular(16.r),
                     topRight: Radius.circular(16.r),
                   ),
-                  child: Image.asset(
-                    item["image"]!,
+                  child: Image.network(
+                    item.coverPictureUrl ?? "",
                     width: double.infinity,
                     fit: BoxFit.contain,
                   ),
@@ -117,9 +119,9 @@ class NewArrivalSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item["title"]!, style: m11),
+                Text(item.name ?? '', style: m11),
                 SizedBox(height: 5.h),
-                Text(item["price"]!, style: sb13),
+                Text(item.price?.toString() ?? '', style: sb13),
               ],
             ),
           ),

@@ -1,9 +1,16 @@
+import 'package:dio/dio.dart';
+import 'package:e_commerce_app/core/injection/injection.dart';
 import 'package:e_commerce_app/core/navigation/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies(); // wait until ready
+  await getIt.allReady(); // ensure all async deps done
+  getIt.registerLazySingleton<Dio>(() => Dio());
+
   runApp(const MyApp());
 }
 

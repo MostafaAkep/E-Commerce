@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/core/theme/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_typography.dart';
+import 'package:e_commerce_app/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/brand_selector.dart';
@@ -14,22 +16,40 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: defaultPadding.copyWith(top: 25.h),
-          child: SingleChildScrollView(
-            child: Column(
-              spacing: 20.h,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HomeHeader(),
-                const SearchField(),
-                const BrandSelector(),
-                const NewArrivalSection(),
-              ],
-            ),
-          ),
-        ),
+      body: BlocBuilder<HomeCubit, HomeState>(
+        bloc: context.read<HomeCubit>(),
+        builder: (context, state) {
+          if (state is HomeLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is HomeError) {
+            return Center(
+              child: Text(
+                state.message,
+                style: sb28.copyWith(color: Colors.red),
+              ),
+            );
+          } else if (state is HomeLoaded) {
+            return SafeArea(
+              child: Padding(
+                padding: defaultPadding.copyWith(top: 25.h),
+                child: SingleChildScrollView(
+                  child: Column(
+                    spacing: 20.h,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const HomeHeader(),
+                      const SearchField(),
+                      const BrandSelector(),
+                      NewArrivalSection(products: state.product),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return SizedBox();
+          }
+        },
       ),
       //////////////////////////////////////////////////////////////////////////
       bottomNavigationBar: BottomNavigationBar(

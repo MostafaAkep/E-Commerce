@@ -1,8 +1,11 @@
+import 'package:e_commerce_app/core/injection/injection.dart';
 import 'package:e_commerce_app/features/auth/presentation/pages/get_started_page.dart';
 import 'package:e_commerce_app/features/auth/presentation/pages/log_in_page.dart';
 import 'package:e_commerce_app/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:e_commerce_app/features/auth/presentation/pages/splash_page.dart';
+import 'package:e_commerce_app/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/pages/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
@@ -31,7 +34,10 @@ class AppRoutes {
       ),
       GoRoute(
         path: kHome,
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<HomeCubit>()..getProducts(),
+          child: const HomePage(),
+        ),
       ),
     ],
   );
