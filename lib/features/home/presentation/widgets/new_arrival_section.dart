@@ -11,34 +11,6 @@ class NewArrivalSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final items = [
-    //   {
-    //     "image": Assets.whiteMan1,
-    //     "title": "Nike Sportswear Club Fleece",
-    //     "price": "\$99",
-    //   },
-    //   {
-    //     "image": Assets.whiteMan2,
-    //     "title": "Trail Running Jacket Nike Windrunner",
-    //     "price": "\$95",
-    //   },
-    //   {
-    //     "image": Assets.blackMan1,
-    //     "title": "Trail Running Jacket Nike Windrunner",
-    //     "price": "\$9",
-    //   },
-    //   {
-    //     "image": Assets.blackMan2,
-    //     "title": "Trail Running Jacket Nike Windrunner",
-    //     "price": "\$919",
-    //   },
-    //   {
-    //     "image": Assets.blackMan1,
-    //     "title": "Trail Running Jacket Nike Windrunner",
-    //     "price": "\$959",
-    //   },
-    // ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -100,7 +72,7 @@ class NewArrivalSection extends StatelessWidget {
                   child: Image.network(
                     item.coverPictureUrl ?? "",
                     width: double.infinity,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
@@ -121,7 +93,7 @@ class NewArrivalSection extends StatelessWidget {
               children: [
                 Text(item.name ?? '', style: m11),
                 SizedBox(height: 5.h),
-                Text(item.price?.toString() ?? '', style: sb13),
+                Text('${item.price}\$', style: sb13),
               ],
             ),
           ),
