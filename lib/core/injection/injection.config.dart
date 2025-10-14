@@ -14,6 +14,8 @@ import 'package:e_commerce_app/features/home/data/data_source/home_data_source.d
     as _i315;
 import 'package:e_commerce_app/features/home/data/data_source/home_data_source_impl.dart'
     as _i885;
+import 'package:e_commerce_app/features/home/data/services/home_service_impl.dart'
+    as _i988;
 import 'package:e_commerce_app/features/home/domain/repositories/home_repo.dart'
     as _i726;
 import 'package:e_commerce_app/features/home/domain/repositories/home_repo_impl.dart'
@@ -33,7 +35,10 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.lazySingleton<_i315.HomeDataSource>(
-      () => _i885.HomeDataSourceImpl(gh<_i361.Dio>()),
+      () => _i885.HomeDataSourceImpl(
+        gh<_i361.Dio>(),
+        gh<_i988.HomeServiceImpl>(),
+      ),
     );
     gh.lazySingleton<_i726.HomeRepository>(
       () => _i827.HomeRepositoryImpl(gh<_i315.HomeDataSource>()),

@@ -12,7 +12,7 @@ part of 'home_service_impl.dart';
 
 class _HomeServiceImpl implements HomeServiceImpl {
   _HomeServiceImpl(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://accessories-eshop.runasp.net/';
+    baseUrl ??= 'https://accessories-eshop.runasp.net/api/';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _HomeServiceImpl implements HomeServiceImpl {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'api/products',
+            'products',
             queryParameters: queryParameters,
             data: _data,
           )
