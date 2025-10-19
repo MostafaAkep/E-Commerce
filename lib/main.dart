@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
-  await getIt.allReady();
-  runApp(const MyApp());
+  try {
+    await configureDependencies();
+    await getIt.allReady();
+    runApp(const MyApp());
+  } catch (e, stack) {
+    debugPrint('Initialization error: \$e');
+    debugPrintStack(stackTrace: stack);
+  }
 }
 
 class MyApp extends StatelessWidget {
