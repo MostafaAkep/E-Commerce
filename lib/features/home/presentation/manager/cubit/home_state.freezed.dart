@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ProductEntity> products)?  success,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ProductEntity>? products,  List<CategoryEntity>? categories)?  success,TResult Function( String error)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Success() when success != null:
-return success(_that.products);case _Error() when error != null:
+return success(_that.products,_that.categories);case _Error() when error != null:
 return error(_that.error);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ProductEntity> products)  success,required TResult Function( String error)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ProductEntity>? products,  List<CategoryEntity>? categories)  success,required TResult Function( String error)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Success():
-return success(_that.products);case _Error():
+return success(_that.products,_that.categories);case _Error():
 return error(_that.error);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ProductEntity> products)?  success,TResult? Function( String error)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ProductEntity>? products,  List<CategoryEntity>? categories)?  success,TResult? Function( String error)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Success() when success != null:
-return success(_that.products);case _Error() when error != null:
+return success(_that.products,_that.categories);case _Error() when error != null:
 return error(_that.error);case _:
   return null;
 
@@ -257,14 +257,25 @@ String toString() {
 
 
 class _Success implements HomeState {
-  const _Success({required final  List<ProductEntity> products}): _products = products;
+  const _Success({final  List<ProductEntity>? products, final  List<CategoryEntity>? categories}): _products = products,_categories = categories;
   
 
- final  List<ProductEntity> _products;
- List<ProductEntity> get products {
+ final  List<ProductEntity>? _products;
+ List<ProductEntity>? get products {
+  final value = _products;
+  if (value == null) return null;
   if (_products is EqualUnmodifiableListView) return _products;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_products);
+  return EqualUnmodifiableListView(value);
+}
+
+ final  List<CategoryEntity>? _categories;
+ List<CategoryEntity>? get categories {
+  final value = _categories;
+  if (value == null) return null;
+  if (_categories is EqualUnmodifiableListView) return _categories;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
 
@@ -278,16 +289,16 @@ _$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&const DeepCollectionEquality().equals(other._products, _products));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&const DeepCollectionEquality().equals(other._products, _products)&&const DeepCollectionEquality().equals(other._categories, _categories));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_products));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_products),const DeepCollectionEquality().hash(_categories));
 
 @override
 String toString() {
-  return 'HomeState.success(products: $products)';
+  return 'HomeState.success(products: $products, categories: $categories)';
 }
 
 
@@ -298,7 +309,7 @@ abstract mixin class _$SuccessCopyWith<$Res> implements $HomeStateCopyWith<$Res>
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
 @useResult
 $Res call({
- List<ProductEntity> products
+ List<ProductEntity>? products, List<CategoryEntity>? categories
 });
 
 
@@ -315,10 +326,11 @@ class __$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? products = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? products = freezed,Object? categories = freezed,}) {
   return _then(_Success(
-products: null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
-as List<ProductEntity>,
+products: freezed == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
+as List<ProductEntity>?,categories: freezed == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
+as List<CategoryEntity>?,
   ));
 }
 

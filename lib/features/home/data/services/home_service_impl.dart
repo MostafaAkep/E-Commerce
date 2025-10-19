@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app/core/networking/api_constants.dart';
+import 'package:e_commerce_app/features/home/data/models/category_model/categorys.dart';
 import 'package:e_commerce_app/features/home/data/models/product_model/product.dart';
 import 'package:e_commerce_app/features/home/data/services/home_service.dart';
 import 'package:retrofit/retrofit.dart';
@@ -14,4 +15,8 @@ abstract class HomeServiceImpl implements HomeService {
   @override
   @GET(ApiConstants.products)
   Future<Product> getProducts();
+
+  @override
+  @GET(ApiConstants.categories)
+  Future<Categorys> getCategory();
 }

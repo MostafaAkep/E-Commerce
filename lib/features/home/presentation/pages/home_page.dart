@@ -2,17 +2,29 @@ import 'package:e_commerce_app/core/theme/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_typography.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/cubit/home_state.dart';
+import 'package:e_commerce_app/features/home/presentation/widgets/new_arrival_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/brand_selector.dart';
 import '../widgets/home_header.dart';
-import '../widgets/new_arrival_section.dart';
 import '../widgets/search_field.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeCubit>().getProducts();
+    context.read<HomeCubit>().getCategories();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +36,7 @@ class HomePage extends StatelessWidget {
             initial: () => const SizedBox.shrink(),
             loading: () =>
                 const Center(child: CircularProgressIndicator()),
-            success: (products) => SafeArea(
+            success: (products, categories) => SafeArea(
               child: Padding(
                 padding: defaultPadding.copyWith(top: 25.h),
                 child: SingleChildScrollView(
@@ -34,9 +46,9 @@ class HomePage extends StatelessWidget {
                     children: [
                       const HomeHeader(),
                       const SearchField(),
-                      const BrandSelector(),
+                      BrandSelector(categories: categories ?? []),
                       NewArrivalSection(
-                        products: products
+                        products: products!
                             .expand((product) => product.items!)
                             .toList(),
                       ),

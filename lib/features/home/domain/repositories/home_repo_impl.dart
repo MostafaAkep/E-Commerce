@@ -1,7 +1,9 @@
 import 'package:e_commerce_app/core/networking/api_error_handler.dart';
 import 'package:e_commerce_app/core/networking/api_result.dart';
 import 'package:e_commerce_app/features/home/data/data_source/home_data_source.dart';
+import 'package:e_commerce_app/features/home/data/mappers/category_mapper.dart';
 import 'package:e_commerce_app/features/home/data/mappers/product_mapper.dart';
+import 'package:e_commerce_app/features/home/domain/entities/category_entity.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
 import 'package:e_commerce_app/features/home/domain/repositories/home_repo.dart';
 import 'package:injectable/injectable.dart';
@@ -17,6 +19,16 @@ class HomeRepositoryImpl implements HomeRepository {
     try {
       final model = await remoteDataSource.getProducts();
       return ApiResult.success(model.toEntity());
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  @override
+  Future<ApiResult<List<CategoryEntity>>> getCategory() async {
+    try {
+      final model = await remoteDataSource.getCategory();
+      return ApiResult.success(model.toEntity().categories);
     } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));
     }

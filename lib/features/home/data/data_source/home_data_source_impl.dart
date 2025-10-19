@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app/core/injection/injection.dart';
 import 'package:e_commerce_app/features/home/data/data_source/home_data_source.dart';
+import 'package:e_commerce_app/features/home/data/models/category_model/categorys.dart';
 import 'package:e_commerce_app/features/home/data/models/product_model/product.dart';
 import 'package:e_commerce_app/features/home/data/services/home_service.dart';
 import 'package:injectable/injectable.dart';
@@ -15,5 +16,10 @@ class HomeDataSourceImpl implements HomeDataSource {
   @override
   Future<Product> getProducts() {
     return homeService.getProducts();
+  }
+
+  @override
+  Future<Categorys> getCategory() {
+    return homeService.getCategory();
   }
 }

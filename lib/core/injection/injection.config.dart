@@ -21,6 +21,8 @@ import 'package:e_commerce_app/features/home/domain/repositories/home_repo.dart'
     as _i726;
 import 'package:e_commerce_app/features/home/domain/repositories/home_repo_impl.dart'
     as _i827;
+import 'package:e_commerce_app/features/home/domain/use_cases/category_use_case.dart'
+    as _i195;
 import 'package:e_commerce_app/features/home/domain/use_cases/product_use_case.dart'
     as _i250;
 import 'package:e_commerce_app/features/home/presentation/manager/cubit/home_cubit.dart'
@@ -46,11 +48,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i726.HomeRepository>(
       () => _i827.HomeRepositoryImpl(gh<_i315.HomeDataSource>()),
     );
+    gh.factory<_i195.CategoryUseCase>(
+      () => _i195.CategoryUseCase(gh<_i726.HomeRepository>()),
+    );
     gh.lazySingleton<_i250.GetProductsUseCase>(
       () => _i250.GetProductsUseCase(gh<_i726.HomeRepository>()),
     );
     gh.factory<_i554.HomeCubit>(
-      () => _i554.HomeCubit(gh<_i250.GetProductsUseCase>()),
+      () => _i554.HomeCubit(
+        gh<_i250.GetProductsUseCase>(),
+        gh<_i195.CategoryUseCase>(),
+      ),
     );
     return this;
   }

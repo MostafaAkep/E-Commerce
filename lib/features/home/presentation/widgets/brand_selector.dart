@@ -1,14 +1,16 @@
 import 'package:e_commerce_app/core/theme/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_typography.dart';
+import 'package:e_commerce_app/features/home/domain/entities/category_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BrandSelector extends StatelessWidget {
-  const BrandSelector({super.key});
+  const BrandSelector({super.key, required this.categories});
+  final List<CategoryEntity> categories;
 
   @override
   Widget build(BuildContext context) {
-    final brands = ["Adidas", "Nike", "Fila", "Puma", "Reebok"];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -19,7 +21,7 @@ class BrandSelector extends StatelessWidget {
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            itemCount: brands.length,
+            itemCount: categories.length,
             separatorBuilder: (_, __) => SizedBox(width: 10.w),
             itemBuilder: (context, index) {
               return Container(
@@ -29,9 +31,17 @@ class BrandSelector extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.checkroom_outlined, size: 18),
+                    SvgPicture.network(
+                      categories[index].coverPictureUrl.toString(),
+                      width: 25.w,
+                      height: 17.h,
+                      fit: BoxFit.contain,
+                    ),
                     SizedBox(width: 18.w),
-                    Text(brands[index], style: m15),
+                    Text(
+                      categories[index].name.toString(),
+                      style: m15,
+                    ),
                   ],
                 ),
               );
