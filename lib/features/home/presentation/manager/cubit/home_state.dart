@@ -1,17 +1,14 @@
-part of 'home_cubit.dart';
+import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class HomeState {}
+part 'home_state.freezed.dart';
 
-class HomeInitial extends HomeState {}
-
-class HomeLoading extends HomeState {}
-
-class HomeLoaded extends HomeState {
-  final ProductEntity product;
-  HomeLoaded(this.product);
-}
-
-class HomeError extends HomeState {
-  final String message;
-  HomeError(this.message);
+@freezed
+class HomeState with _$HomeState {
+  const factory HomeState.initial() = _Initial;
+  const factory HomeState.loading() = _Loading;
+  const factory HomeState.success({
+    required List<ProductEntity> products,
+  }) = _Success;
+  const factory HomeState.error({required String error}) = _Error;
 }

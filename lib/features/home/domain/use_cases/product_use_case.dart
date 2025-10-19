@@ -1,5 +1,7 @@
+import 'package:e_commerce_app/core/networking/api_result.dart';
 import 'package:e_commerce_app/features/home/domain/repositories/home_repo.dart';
 import 'package:injectable/injectable.dart';
+
 import '../entities/product_entity.dart';
 
 @lazySingleton
@@ -8,7 +10,7 @@ class GetProductsUseCase {
 
   GetProductsUseCase(this.repository);
 
-  Future<ProductEntity> call() async {
+  Future<ApiResult<ProductEntity>> call() async {
     return await repository.getProducts();
   }
 }

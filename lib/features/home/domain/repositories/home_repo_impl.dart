@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/core/networking/api_error_handler.dart';
+import 'package:e_commerce_app/core/networking/api_result.dart';
 import 'package:e_commerce_app/features/home/data/data_source/home_data_source.dart';
 import 'package:e_commerce_app/features/home/data/mappers/product_mapper.dart';
 import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
@@ -11,8 +13,12 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<ProductEntity> getProducts() async {
-    final model = await remoteDataSource.getProducts();
-    return model.toEntity();
+  Future<ApiResult<ProductEntity>> getProducts() async {
+    try {
+      final model = await remoteDataSource.getProducts();
+      return ApiResult.success(model.toEntity());
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
   }
 }

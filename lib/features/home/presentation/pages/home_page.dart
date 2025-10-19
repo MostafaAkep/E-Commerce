@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/theme/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_typography.dart';
 import 'package:e_commerce_app/features/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:e_commerce_app/features/home/presentation/manager/cubit/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,17 +20,11 @@ class HomePage extends StatelessWidget {
       body: BlocBuilder<HomeCubit, HomeState>(
         bloc: context.read<HomeCubit>(),
         builder: (context, state) {
-          if (state is HomeLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is HomeError) {
-            return Center(
-              child: Text(
-                state.message,
-                style: sb28.copyWith(color: Colors.red),
-              ),
-            );
-          } else if (state is HomeLoaded) {
-            return SafeArea(
+          return state.when(
+            initial: () => const SizedBox.shrink(),
+            loading: () =>
+                const Center(child: CircularProgressIndicator()),
+            success: (products) => SafeArea(
               child: Padding(
                 padding: defaultPadding.copyWith(top: 25.h),
                 child: SingleChildScrollView(
@@ -40,15 +35,23 @@ class HomePage extends StatelessWidget {
                       const HomeHeader(),
                       const SearchField(),
                       const BrandSelector(),
-                      NewArrivalSection(products: state.product),
+                      NewArrivalSection(
+                        products: products
+                            .expand((product) => product.items!)
+                            .toList(),
+                      ),
                     ],
                   ),
                 ),
               ),
-            );
-          } else {
-            return SizedBox();
-          }
+            ),
+            error: (error) => Center(
+              child: Text(
+                error,
+                style: sb28.copyWith(color: Colors.red),
+              ),
+            ),
+          );
         },
       ),
       //////////////////////////////////////////////////////////////////////////

@@ -1,13 +1,12 @@
 import 'package:e_commerce_app/core/theme/app_colors.dart';
 import 'package:e_commerce_app/core/utils/app_typography.dart';
 import 'package:e_commerce_app/features/home/domain/entities/items_entity.dart';
-import 'package:e_commerce_app/features/home/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NewArrivalSection extends StatelessWidget {
   const NewArrivalSection({super.key, required this.products});
-  final ProductEntity products;
+  final List<ItemsEntity> products;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class NewArrivalSection extends StatelessWidget {
         _sectionHeader("New Arrival"),
         SizedBox(height: 10.h),
         GridView.builder(
-          itemCount: products.items?.length ?? 0,
+          itemCount: products.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -27,7 +26,7 @@ class NewArrivalSection extends StatelessWidget {
             childAspectRatio: 0.7,
           ),
           itemBuilder: (context, index) {
-            final item = products.items![index];
+            final item = products[index];
             return _productCard(item);
           },
         ),
